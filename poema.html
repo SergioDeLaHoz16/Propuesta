@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi amada Sarai</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilos personalizados */
+        body {
+            background-color: #fff0f5;
+        }
+        .poem-line {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .poem-line.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #ff69b4;
+            transform: rotate(45deg);
+            animation: float 4s ease-in-out infinite;
+        }
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #ff69b4;
+            border-radius: 50%;
+        }
+        .heart::before {
+            top: -10px;
+            left: 0;
+        }
+        .heart::after {
+            left: 10px;
+            top: 0;
+        }
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(45deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(45deg);
+            }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="max-w-4xl text-center">
+        <h1 class="text-4xl font-bold text-pink-600 mb-6">Para mi princesita Sarai</h1>
+        <div id="poem" class="bg-white p-6 rounded-lg shadow-lg relative overflow-hidden">
+            <!-- Las líneas del poema se insertarán aquí -->
+        </div>
+    </div>
+
+    <script>
+        // Contenido del poema
+        const poemLines = [
+            "Querida Sarai, mi dulce Espaguetty,",
+            "Desde el momento en que dijiste \"sí\",",
+            "mi corazón danza al ritmo de tu amor,",
+            "llenando mi vida de alegría y color.",
+            "",
+            "Eres la melodía que endulza mis días,",
+            "la luz que ilumina mis noches frías.",
+            "Tu sonrisa, un faro en la oscuridad,",
+            "tu abrazo, mi refugio de paz y tranquilidad.",
+            "",
+            "Me alegra saber que caminamos juntos,",
+            "que nuestros sueños se entrelazan y son uno.",
+            "Eres y serás el amor de mi vida,",
+            "mi compañera, mi amiga, mi querida.",
+            "",
+            "Gracias por ser mi inspiración constante,",
+            "por ser mi musa, mi amor vibrante.",
+            "Te amo hoy, mañana y siempre,",
+            "mi amada Sarai, mi eterno presente."
+        ];
+
+        const poemContainer = document.getElementById('poem');
+
+        // Función para crear y animar corazones
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            poemContainer.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 3000);
+        }
+
+        // Función para mostrar las líneas del poema con animación
+        function displayPoem() {
+            poemLines.forEach((line, index) => {
+                const lineElement = document.createElement('p');
+                lineElement.textContent = line;
+                lineElement.className = 'poem-line text-lg text-gray-700';
+                poemContainer.appendChild(lineElement);
+
+                setTimeout(() => {
+                    lineElement.classList.add('visible');
+                    if (line.trim() !== '') {
+                        createHeart();
+                    }
+                }, index * 2000);
+            });
+        }
+
+        // Iniciar la visualización del poema
+        displayPoem();
+    </script>
+</body>
+</html>
